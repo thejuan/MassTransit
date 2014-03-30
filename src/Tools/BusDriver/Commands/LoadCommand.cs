@@ -61,7 +61,7 @@ namespace BusDriver.Commands
                 .BeginBlock("Load messages to URI: " + uri, "");
 
             string[] files =
-                System.IO.Directory.GetFiles(directoryName, fullPath.GetName() + "*", SearchOption.TopDirectoryOnly)
+                System.IO.Directory.GetFiles(directoryName, fullPath.GetName() + "*.msg", SearchOption.TopDirectoryOnly)
                       .OrderBy(x => x).ToArray();
 
             int loadCount = 0;
@@ -139,6 +139,13 @@ namespace BusDriver.Commands
             {
                 get { return typeof(object); }
             }
+
+            public void SetDeliveryMode(DeliveryMode deliveryMode)
+            {
+                DeliveryMode = deliveryMode;
+            }
+
+            public DeliveryMode DeliveryMode { get; private set; }
 
             public void SerializeTo(Stream stream)
             {
